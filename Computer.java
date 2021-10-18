@@ -23,6 +23,7 @@ public class Computer {
 		int ship3 = 4; 
 		
 		if (orient == 0) { 
+		//changes each one to 1 for length of ship 
 			for (int k = 0; k < ship1; k++) {
 				compBoard[start][k] = 1;
 			}
