@@ -7,14 +7,17 @@ public class Computer {
 		//print numbers across top 
 		for (int i = 0; i < compBoard.length; i++) {
 			//print start of row in letters 
+			//prints out each row of the array one by one with a line in between 
 			for (int j = 0; j < compBoard[0].length; j++) {
 					System.out.print(compBoard[i][j] + " "); 
 				}
 			System.out.println("");
 		}
 		
+	//randomly placing row
 		int orient = (int)(Math.random()*2); //0 = horizontal, 1 = vertical
 		int start =(int)(Math.random()*10) + 1; 
+	//need another random for horizontal/veritcal start
 		int ship1 = 2;
 		int ship2 = 3; 
 		int ship3 = 4; 
@@ -45,11 +48,12 @@ public class Computer {
 
 		
 	}
-	
+//guessing check 
 	/*
 		public void GuessCheck()  {
 			String guess = mackenziesclass.guessing variable //haven't gotten her user input variable
 			char row = guess.charAt(0); 
+			//assigning int for each row
 				if (row == "a" || row == "A") { 
 					int roe = 1; 
 				}
