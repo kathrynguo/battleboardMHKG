@@ -140,7 +140,228 @@ public class Computer {
 		}
 	}
 
+	boolean g1 = false; //allows the computer to keep guessing it they get it right
+	boolean g2 = false; //true if there isn't a hit
+	boolean g3 = true; //true if there is a hit
+	
+	public void compGuess(int[][] array) { //checking computer guess against human
+		
+		//System.out.println("test");
+		
+		int gr; //guess row
+		int gc; //guess column 
+		int i = 1;
+		
+		while (g1 == false) {
+			
+			gr = (int)(Math.random()*10); 
+			gc = (int)(Math.random()*10); 
+			
+			System.out.println("\nComputer Guess: Row " + gr + ", Column " + gc);
+			
+			if  (array[gr][gc] != 1) {
+				g1 = true; 
+				System.out.println("Miss");
+				array[gr][gc] = 2;
+			}
+			
+			else if (array[gr][gc] == 1) {  
+				
+				System.out.println("Hit");
+				array[gr][gc] = 3;
+				
+				if ( gr < 9 && gr > 0 && gc < 9 && gr > 0 ) {
+				
+					while (g2 == false) { //moving left, right, up, down based on true guess
+						if (array[gr + i][gc] == 1) { //if this direction is correct, guess becones true
+							//System.out.println("Computer Guess: Row " + (gr + i) + ", Column " + gc);
+							//g1 = true;
+							while (g3 == true) { //moving in the same direction based on determined direction //spent an hour debugging this just to find out i was missing an equal sign
+								//if ((gr + i) <= 9 || (gr + i) >= 0) {
+									if (array[gr + i][gc] == 1) { //keep moving in same direction
+										//if ((gr + i) <= 9 || (gr + i) >= 0) { //checking bounds
+											g3 = true;
+											System.out.println("\nComputer Guess: Row " + (gr + i) + ", Column " + gc);
+											System.out.println("Hit");
+											array[gr + i][gc] = 3;
+											i += 1;
+									//	}
+											if ((gr + i) < 9 && (gr + i) > 0) {
+												g3 = true;
+											}
+											else { //will stop guessing if it reaches a bound
+												System.out.println("The computer has reached the edge of the board. It will stop guessing now.");
+												//g1 = true;
+												g2 = true;
+												g3 = false;
+											}
+									}
+									else if (array[gr + i][gc] == 3) { //if there's already a hit there, gets out of the inner while loops and goes back to the original 
+										g2 = true;
+										g3 = false;
+									}
+									else { //or else get out of this while loop and go back to original
+										g3 = false;
+										g1 = true;
+										g2 = true;
+										//g1 = false;
+										array[gr + i][gc] = 2;
+										System.out.println("\nComputer Guess: Row " + (gr + i) + ", Column " + gc);
+										System.out.println("Miss");
+									}
+							}
+							//g2 = true;
+						}
+						else if (array[gr - i][gc] == 1) {
+							//System.out.println("Computer Guess: Row " + (gr - i) + ", Column " + gc);
+							while (g3 == true) { //moving in the same direction based on determined direction 
+								//if ((gr - i) <= 9 || (gr - i) >= 0) {
+									if (array[gr - i][gc] == 1) { //keep moving in same direction
+										//if ((gr - i) <= 9 || (gr - i) >= 0) { //checking bounds
+											g3 = true;
+											System.out.println("Computer Guess: Row " + (gr - i) + ", Column " + gc);
+											System.out.println("Hit");
+											array[gr - i][gc] = 3;
+											i += 1;
+										//}
+											if ((gr - i) < 9 && (gr - i) > 0) {
+												g3 = true;
+											}
+											else { //will stop guessing if it reaches a bound
+												System.out.println("The computer has reached the edge of the board. It will stop guessing now.");
+												//g1 = true;
+												g2 = true;
+												g3 = false;
+											}
+									}
+									else if (array[gr - i][gc] == 3) {
+										g2 = true;
+										g3 = false;
+									}
+									else { //or else get out of this while loop and go back to original
+										g3 = false;
+										g1 = true;
+										g2 = true;
+										//g1 = false;
+										array[gr - i][gc] = 2;
+										System.out.println("Computer Guess: Row " + (gr - i) + ", Column " + gc);
+										System.out.println("Miss");
+									}
+							}
+							//g2 = true;
+						}
+						else if (array[gr][gc + 1] == 1) {
+						//System.out.println("Computer Guess: Row " + gr + ", Column " + (gc + 1));
+							while (g3 == true) { //moving in the same direction based on determined direction 
+								//if ((gc + i) <= 9 || (gc + i) >= 0) {
+									if (array[gr][gc + i] == 1) { //keep moving in same direction
+										//if ((gc + i) <= 9 || (gc + i) >= 0) { //checking bounds //switched order of loops
+											g3 = true;
+											System.out.println("\nComputer Guess: Row " + (gr) + ", Column " + (gc + i));
+											System.out.println("Hit");
+											array[gr][gc + i] = 3;
+											i += 1;
+										//}
+											if ((gc + i) < 9 && (gc + i) > 0) { //checking bounds
+												g3 = true;
+											}
+											else { //will stop guessing if it reaches a bound
+												System.out.println("The computer has reached the edge of the board.");
+												//g1 = true;
+												g2 = true;
+												g3 = false;
+											}
+									}
+									else if (array[gr][gc + i] == 3) {
+										g2 = true;
+										g3 = false; 
+									}
+									else { //or else get out of this while loop and go back to original
+										g3 = false;
+										g1 = true;
+										g2 = true;
+										//g1 = false;
+										System.out.println("\nComputer Guess: Row " + gr + ", Column " + (gc + i));
+										array[gr][gc + i] = 2;
+										System.out.println("Miss");
+									}
+							}
+							//g2 = true;
+						}
+						else if (array[gr][gc - 1] == 1) {
+							//System.out.println("Computer Guess: Row " + gr + ", Column " + (gc - 1));
+							while (g3 == true) { //moving in the same direction based on determined direction
+								//if ((gc - i) <= 9 || (gc - i) >= 0) { 
+									if (array[gr][gc - i] == 1) {
+									//	if ((gc - i) <= 9 || (gc - i) >= 0) { //checking bounds
+											g3 = true;
+											System.out.println("Computer Guess: Row " + (gr) + ", Column " + (gc - i));
+											System.out.println("Hit");
+											array[gr][gc - i] = 3;
+											i += 1;
+										//}
+											if ((gc - i) < 9 && (gc - i) > 0) {
+												g3 = true; 
+											}
+											else { //will stop guessing if it reaches a bound
+												System.out.println("The computer has reached the edge of the board. It will stop guessing now.");
+												g1 = true;
+												g2 = true;
+												g3 = false;
+											}
+									}
+									else if (array[gr][gc - i] == 3) {
+										g2 = true;
+										g3 = false; //if theres a marker that says you've already gotten a ship there, go back to the beginning
+									}
+									else { //or else get out of this while loop and go back to original
+										g3 = false;
+										g1 = true;
+										g2 = true;
+										//g1 = false;
+										array[gr][gc - i] = 2;
+										System.out.println("Computer Guess: Row " + gr + ", Column " + (gc - 1));
+										System.out.println("Miss");
+									}
+							}
+							//g2 = true;
+						}
+						else {
+							g2 = false;
+						}
+					}
+				}
+				else {
+					System.out.println("The computer has reached the edge of the board. It will guess again.");
+					/* IF I HAD MORE TIME, I'D CREATE CONDTIONALS BASED ON WHICH BOUNDARY IT LIES ON TO ELIMATE THE # OF DIRECTIONS IT CAN GO IN, BUT STILL MAKE GUESSES OFF OF THE FIRST.*/
+				}
+					
+			}
 
+		}
+		
+		System.out.println("\nCOMPUTER BOARD AFTER TURN");
+		System.out.println("PRETEND YOU CAN'T SEE THIS, \nIT'S FOR ORGANIZATION'S SAKE");
+		for (int j = 0; j < array.length; j++) {
+				//print start of row in letters 
+				for (int k = 0; k < array[0].length; k++) {
+						System.out.print(array[j][k] + " "); 
+					}
+				System.out.println("");
+			}
+		
+		
+	}
+	
+	boolean w = false; 
+	
+	public void passToHuman() { //checking human against computer board
+		BattleBoardMH guessCheck = new BattleBoardMH(); 
+		guessCheck.guess(compBoard); 
+		//LOOPS TO CHECK FOR WINNER
+		//TesterBB wincomp = new TesterBB();
+		//wincomp.computerWin(compBoard, w);
+	}
 		
 	
 		

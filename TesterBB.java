@@ -1,59 +1,64 @@
-import java.util.Scanner;
-
-public class BBTester {
-	public static void main (String[] args) {
-		battleBoard myStand = new battleBoard();
-		Scanner keyboard = new Scanner(System.in);
-		int a = 1;
-		int b = 1;
-		int gameNum = 1;
-		System.out.println(" ");
-		System.out.println("Welcome to Battle Board!");
-		System.out.println("Would you like to play?");
-		System.out.print("Yes or No : ");
-		String welcome = keyboard.nextLine();
-		while ( a == 1) {
-			if (welcome.equals("Yes") || welcome.equals("yes")) {
-				System.out.println("\nGame 1: \n");
-				myStand.array();
-				myStand.rules();
-				myStand.shipPlacementPlayer();
-				//myStand.shipPlacementComputer();
-				a = 0;
-				while ( b == 1) {
-					gameNum = gameNum + 1;
-					Scanner question = new Scanner(System.in);
-					System.out.println("\nWould you like to play again?");
-					System.out.print("Yes or No : ");
-					String playAgain = keyboard.nextLine();
-					if ( playAgain.equals("Yes") || playAgain.equals("yes")) {
-						b = 1;
-						a = 0;
-						System.out.println("\nGame " + gameNum + ": \n");
-						myStand.array();
-						myStand.rules();
-						myStand.shipPlacementPlayer();
-						//myStand.shipPlacementComputer();
-					}
-					else if ( playAgain.equals("No") || playAgain.equals("no"))  {
-						b = 0;
-						a = 0;
-						System.out.println("\nThanks for playing! See you again next time!");
+public class TesterBB {
+	
+	/* LOOPS TO CHECK FOR WINNER
+	public void computerWin(int[][] array1, boolean w1) { //checking for a win
+		for (int i = 0; i < array1.length; i++) {
+			for (int j = 0; j < array1[0].length; j++) {
+					if (array1[i][j] == 1) { //if theres even oen 1 you know you haven't won
+						w1 = false;
 					}
 					else {
-						System.out.println("\nPlease type Yes or No.\n");
-						b = 1;
+						w1 = true;
 					}
 				}
-			}
-			else if (welcome.equals("No") || welcome.equals("no")) {
-				System.out.println("Ok! See you next time!");
-				a = 0;
-			}
-			else {
-				System.out.println("Please type Yes or No.");
-				a = 1;
-			}
 		}
 	}
+	
+	public void humanWin(int[][] array2, boolean w2) {
+			for (int i = 0; i < array2.length; i++) {
+				for (int j = 0; j < array2[0].length; j++) {
+						if (array2[i][j] == 1) { //if theres even oen 1 you know you haven't won
+							w2 = false;
+						}
+						else {
+							w2 = true;
+						}
+				}
+		}
+	}
+	* */
+	
+	public static void main (String[] args) {
+		
+	BattleBoardMH player1 = new BattleBoardMH(); 
+	player1.rules(); 
+	player1.array(); 
+	
+	player1.shipPlacementPlayer();
+	//player1.guess();
+	
+	Computer newComp = new Computer();
+	//newComp.emptyBoard(); 
+	newComp.placingShips();
+	System.out.println("\n\nCOMPUTER");
+	newComp.printBoard();  
+	
+	boolean playing = true;
+	
+	while (playing == true) { //infintie on purpose
+		player1.passToComp(); 
+		newComp.passToHuman();
+	}
+	
+	/*
+	FakeHuman FH = new FakeHuman();
+	FH.placingShipsFH();
+	System.out.print("\nFAKE HUMAN\n");
+	FH.printBoardFH(); 
+	
+	FH.passToComp();
+	*/
+	
+	}
+	
 }
