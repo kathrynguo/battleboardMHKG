@@ -1,8 +1,11 @@
+//all kathryn's work 
+//kathryn also did the driver class
 public class Computer {
 	
-	int[][] compBoard = new int[10][10];
+	int[][] compBoard = new int[10][10]; //create new board
 	
-	public void emptyBoard() {
+	
+	public void emptyBoard() { //printing empty board
 		
 		//print numbers across top 
 		for (int i = 0; i < compBoard.length; i++) {
@@ -22,8 +25,9 @@ public class Computer {
 		int startR1; 
 		int startC1; 
 		
-		
-			if (orient1 == 0){
+			
+	
+			if (orient1 == 0){ //horizontal or vertical 
 				startR1 =(int)(Math.random()*10); 
 				startC1 =(int)(Math.random()*9); //0-8 ensures that the ship won't start at a place where it runs off the edge (can't start at column = 9 for horizontal ship)
 			}
@@ -33,7 +37,7 @@ public class Computer {
 			}
 		
 
-			if (orient1 == 0) { 
+			if (orient1 == 0) { //changing 0s to 1s accordingly with for loop 
 				for (int k = 0; k < ship1; k++) {
 					compBoard[startR1][startC1 + k] = 1;
 				}
@@ -45,7 +49,7 @@ public class Computer {
 			}	
 			
 			
-		int ship2 = 3; 
+		int ship2 = 3; //same thing except for 3 length ship 
 		int orient2 = (int)(Math.random()*2);
 		int startR2; 
 		int startC2;
@@ -60,9 +64,9 @@ public class Computer {
 			}
 			
 			
-			if (orient2 == 0) {
+			if (orient2 == 0) { //placing ships but having parameters so that two ships can't end up in the same place, continuously generate until it doesn't equal 1
 				do { 
-				startR2 =(int)(Math.random()*10); 
+				startR2 =(int)(Math.random()*10); //will continue to generate random numbers until it doesn't = 1
 				startC2 =(int)(Math.random()*8);
 				} while (compBoard[startR2][startC2] == 1 || compBoard[startR2][startC2 + 1] == 1 || compBoard[startR2][startC2 + 2] == 1);
 			}
@@ -85,7 +89,7 @@ public class Computer {
 				}
 			}	
 			
-			
+		//same thing but for four length ship 
 		int ship3 = 4; 
 		int orient3 = (int)(Math.random()*2);
 		int startR3; 
@@ -129,7 +133,7 @@ public class Computer {
 		
 	}
 	
-	public void printBoard() {
+	public void printBoard() { //printing new board
 		//print numbers across top 
 		for (int i = 0; i < compBoard.length; i++) {
 			//print start of row in letters 
@@ -154,12 +158,12 @@ public class Computer {
 		
 		while (g1 == false) {
 			
-			gr = (int)(Math.random()*10); 
+			gr = (int)(Math.random()*10); //random guess
 			gc = (int)(Math.random()*10); 
 			
 			System.out.println("\nComputer Guess: Row " + gr + ", Column " + gc);
 			
-			if  (array[gr][gc] != 1) {
+			if  (array[gr][gc] != 1) { //1 means there's not a ship there
 				g1 = true; 
 				System.out.println("Miss");
 				array[gr][gc] = 2;
@@ -170,7 +174,7 @@ public class Computer {
 				System.out.println("Hit");
 				array[gr][gc] = 3;
 				
-				if ( gr < 9 && gr > 0 && gc < 9 && gr > 0 ) {
+				if ( gr < 9 && gr > 0 && gc < 9 && gc > 0 ) { //making sure within bounds
 				
 					while (g2 == false) { //moving left, right, up, down based on true guess
 						if (array[gr + i][gc] == 1) { //if this direction is correct, guess becones true
@@ -183,7 +187,7 @@ public class Computer {
 											g3 = true;
 											System.out.println("\nComputer Guess: Row " + (gr + i) + ", Column " + gc);
 											System.out.println("Hit");
-											array[gr + i][gc] = 3;
+											array[gr + i][gc] = 3; //3 equals hit 
 											i += 1;
 									//	}
 											if ((gr + i) < 9 && (gr + i) > 0) {
@@ -272,7 +276,7 @@ public class Computer {
 												g3 = false;
 											}
 									}
-									else if (array[gr][gc + i] == 3) {
+									else if (array[gr][gc + i] == 3) { //if there's already a hit there you get out of the loop 
 										g2 = true;
 										g3 = false; 
 									}
@@ -358,7 +362,7 @@ public class Computer {
 	public void passToHuman() { //checking human against computer board
 		BattleBoardMH guessCheck = new BattleBoardMH(); 
 		guessCheck.guess(compBoard); 
-		//LOOPS TO CHECK FOR WINNER
+		//LOOPS TO CHECK FOR WINNER //in driver class
 		//TesterBB wincomp = new TesterBB();
 		//wincomp.computerWin(compBoard, w);
 	}
