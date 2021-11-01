@@ -28,6 +28,9 @@ public class TesterBB {
 	}
 	* */
 	
+	//pass through and if there is a true then whoever has the true wins
+	
+	//main
 	public static void main (String[] args) {
 		
 	BattleBoardMH player1 = new BattleBoardMH(); 
@@ -45,7 +48,8 @@ public class TesterBB {
 	
 	boolean playing = true;
 	
-	while (playing == true) { //infintie on purpose
+		
+	while (playing == true) { //alternating turns until win == false
 		player1.passToComp(); 
 		newComp.passToHuman();
 	}
